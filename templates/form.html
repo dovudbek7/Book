@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% if book %}Update task {% else %} Add task{% endif %}</title>
+</head>
+<body>
+    <h1>{% if book %}Update task {% else %} Add task{% endif %}</h1>
+    <form action="{% if book %}{% url 'book:book_update' pk=book.pk %}{% else %}{% url 'book:book_create'%}{% endif %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+
+    </form>
+</body>
+</html>
