@@ -28,6 +28,7 @@ def book_update(request,pk):
             return redirect('book:books')
     form = UpdateBookForm(instance=book)
     return render(request, 'form.html', {'form':form,'book':book})
+
 def delete(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
