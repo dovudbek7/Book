@@ -1,22 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<p>Books</p>
-<a href="{% url 'book:book_create'%}">Add book</a>
-    <ol>
-        {% for book in books %}
-            <li><a href="{% url 'book:book_details' pk=book.pk %}">{{ book.title }}</a></li>
-            <a href="{% url 'book:book_update' pk=book.pk %}">Update</a>
-            <a href="{% url 'book:delete' pk=book.pk %}">Delete</a>
-        {% endfor %}
-    </ol>
 
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+        <h1>Library</h1>
+        <a href="{% url 'book:book_create'%}" class="btn btn-primary add-book">Add Book</a>
+        <ol>
+            {% for book in books %}
+                <li>
+                    <span class="book-title"><a href="{% url 'book:book_details' pk=book.pk %}">{{ book.title }}</a></span>
+
+                <span class="book-actions">
+                    <a href="{% url 'book:book_update' pk=book.pk %}">Update</a>
+                    <a href="{% url 'book:delete' pk=book.pk %}">Delete</a>
+                </span>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <footer>
+        <p>Powered by <a href="https://www.linkedin.com/in/abdulla-dev/">Abdulla Abdukulov</a></p>
+    </footer>
+
+{% endblock content %}
