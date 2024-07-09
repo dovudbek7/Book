@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="container">
+    <a href="{% url 'book:logout'%}" class="float-end">Logout</a>
         <h1>Library</h1>
         <a href="{% url 'book:book_create'%}" class="btn btn-primary add-book">Add Book</a>
         <ol>
@@ -18,8 +19,5 @@
             {% endfor %}
         </ol>
     </div>
-    <footer>
-        <p>Powered by <a href="https://www.linkedin.com/in/abdulla-dev/">Abdulla Abdukulov</a></p>
-    </footer>
 
 {% endblock content %}
