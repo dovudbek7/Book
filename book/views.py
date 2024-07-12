@@ -1,13 +1,24 @@
 from django.shortcuts import render,get_object_or_404, redirect,HttpResponse
-from .forms import BookForm, UpdateBookForm, SignUp,LoginForm
+
+from config import settings
+from .forms import BookForm, UpdateBookForm, SignUp, LoginForm, EmailForm
 from .models import Book
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+
 
 @login_required
 def books(request):
     books = Book.objects.all()
-    return render(request, 'book.html', {'books':books})
+    users = User.objects.all()
+    return render(request, 'book.html', {'books':books,'users': users})
+
+def user_books(request, username):
+    user = get_object_or_404(User, username=username)
+    books = Book.objects.filter(created_by=user)
+    return render(request, 'user_books.html', {'books':books,'user': user})
 
 def book_details(request, pk):
     book = get_object_or_404(Book, pk=pk)
@@ -17,10 +28,13 @@ def book_create(request):
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
         if form.is_valid():
+            book = form.save(commit=False)
+            book.created_by = request.user
             form.save()
             return redirect('book:books')
     form = BookForm()
     return render(request, 'form.html', {'form':form})
+
 
 def book_update(request,pk):
     book = get_object_or_404(Book, pk=pk)
@@ -64,6 +78,23 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+def postdate(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            subject = f"This shared by {cd['name']}"
+            # url = request.build_absolute_uri()
+            massage = f"This massage sent by {cd['name']} - {cd['email']}'s comment's {cd['comments']}"
+            send_mail(subject,
+                      massage,
+                      settings.EMAIL_HOST_USER, [cd['to']])
+            return render(request, 'succes.html')
+    else:
+        form = EmailForm()
+    return render(request, 'emailform.html', {'form': form})
+
 
 def user_logout(request):
     logout(request)

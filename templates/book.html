@@ -2,22 +2,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
-    <a href="{% url 'book:logout'%}" class="float-end">Logout</a>
-        <h1>Library</h1>
-        <a href="{% url 'book:book_create'%}" class="btn btn-primary add-book">Add Book</a>
-        <ol>
-            {% for book in books %}
-                <li>
-                    <span class="book-title"><a href="{% url 'book:book_details' pk=book.pk %}">{{ book.title }}</a></span>
+    <div class="container">
+    <h1>Library</h1>
+    <a href="{% url 'book:book_create' %}" class="btn btn-primary add-book">Add Book</a>
+    <ol>
+        {% for book in books %}
+        <li class="book-list">
+            <div class="book-title"><a href="{% url 'book:book_details' pk=book.pk %}">{{ book.title }}</a></div>
+            <span class="created-by">Created by: {{ book.created_by.username }}</span>
+            <a href="{% url 'book:send_email' %}" class="share-link">Share</a>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
 
-                <span class="book-actions">
-                    <a href="{% url 'book:book_update' pk=book.pk %}">Update</a>
-                    <a href="{% url 'book:delete' pk=book.pk %}">Delete</a>
-                </span>
-                </li>
-            {% endfor %}
-        </ol>
-    </div>
 
 {% endblock content %}

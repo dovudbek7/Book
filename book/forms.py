@@ -7,12 +7,12 @@ from django.contrib.auth.models import User
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'author', 'description',)
+        fields = ('title', 'author', 'description','year',)
 
 class UpdateBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'author', 'description',)
+        fields = ('title', 'author', 'description','year',)
 
 
 
@@ -43,3 +43,9 @@ class LoginForm(forms.Form):
         super(LoginForm, self).__init__(*args, **kwargs)
         for fieldname in self.fields:
             self.fields[fieldname].help_text = None
+
+class EmailForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    to = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    comments = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))

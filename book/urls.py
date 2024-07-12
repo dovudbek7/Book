@@ -12,5 +12,6 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
-
+    path('user/<str:username>/books/', user_books, name='user_books'),
+    path('emailsent/', postdate, name='send_email'),
 ]
