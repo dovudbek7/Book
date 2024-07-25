@@ -7,12 +7,12 @@ from django.contrib.auth.models import User
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'author', 'description','year',)
+        fields = ('title', 'author', 'description','publish',)
 
 class UpdateBookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'author', 'description','year',)
+        fields = ('title', 'author', 'description','publish',)
 
 
 

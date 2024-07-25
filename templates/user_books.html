@@ -7,7 +7,7 @@
         <ol>
             {% for book in books %}
             <li class="book-list">
-                <div class="book-title"><a href="{% url 'book:book_details' pk=book.pk %}">{{ book.title }}</a></div>
+                <div class="book-title"><a href="">{{ book.title }}</a></div>
                 <span class="created-by">Created by: {{ book.created_by.username }}</span>
                 <div class="book-details">
                         <span class="book-actions">
