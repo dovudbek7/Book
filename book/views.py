@@ -29,7 +29,6 @@ class BookList(DetailView):
     context_object_name = 'book'
 
     def get_object(self):
-        print(self.kwargs)
         year = self.kwargs['year']
         month = self.kwargs['month']
         day = self.kwargs['day']

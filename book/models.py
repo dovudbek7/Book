@@ -21,7 +21,6 @@ class Book(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        print(98765434567)
         return reverse('book:book_details', args=[
                         self.publish.year,
                         self.publish.month,
